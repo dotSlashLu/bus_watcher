@@ -76,9 +76,6 @@ def notify_rt(route, dep_station, at):
     req = get_rt(route, dep_station)
     logger.debug('Got result: %s' % req.text)
     res = json.loads(req.text)['data']
-    # for bus in res:
-    #     print u'bus at: %s, match against: %s, res: %s' % (
-    #         bus['CurrentStation'], at, re.match(at, bus['CurrentStation']))
     matched = [b for b in res if re.match(at, b['CurrentStation'])]
     if matched:
         notify(EVENT, [matched[0]['CurrentStation']])
